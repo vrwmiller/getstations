@@ -18,7 +18,11 @@ if __name__ == "__main__":
             for e in parsed[i]:
                 rr = requests.get(e)
                 rrparsed = json.loads(rr.content)
+                geom = rrparsed.get("geometry")
                 props = rrparsed.get("properties")
                 stationid = props.get("stationIdentifier")
                 stationname = props.get("name")
-                print(f"{stationid}: {stationname}".format( stationid, stationname))
+                coord = geom.get("coordinates")
+                print(f"{stationname}:".format( stationname ))
+                print(f"  Station ID: {stationid}".format( stationid ))
+                print(f"  Coordinates: {coord[1]}, {coord[0]}\n".format( coord[1], coord[0] ))
